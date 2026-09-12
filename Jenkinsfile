@@ -24,4 +24,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            archiveArtifacts artifacts: 'devops-project.zip', fingerprint: true
+        }
+    }
 }
