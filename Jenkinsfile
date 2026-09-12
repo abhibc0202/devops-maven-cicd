@@ -17,5 +17,11 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+
+        stage('Create ZIP') {
+            steps {
+                sh 'zip -j devops-project.zip index.html'
+            }
+        }
     }
 }
