@@ -37,7 +37,14 @@ pipeline {
                     usernameVariable: 'SSH_USER'
                 )]) {
                     sh '''
-                        unzip -p devops-project.zip index.html > webserver1.html
+                        unzip -p devops-project.zip index.html \
+                        | sed \
+                        -e 's/SERVER_NAME/APP-01/g' \
+                        -e 's/SERVER_IP/10.0.3.154/g' \
+                        -e 's/SERVER_SUBNET/dev-private-subnet-a/g' \
+                        -e 's/SERVER_AZ/eu-west-1a/g' \
+                        -e 's/SERVER_OS/Ubuntu/g' \
+                        > webserver1.html
 
                         scp -o StrictHostKeyChecking=no \
                             -o UserKnownHostsFile=/dev/null \
@@ -65,7 +72,14 @@ pipeline {
                     usernameVariable: 'SSH_USER'
                 )]) {
                     sh '''
-                        unzip -p devops-project.zip index.html > webserver2.html
+                        unzip -p devops-project.zip index.html \
+                        | sed \
+                        -e 's/SERVER_NAME/APP-02/g' \
+                        -e 's/SERVER_IP/10.0.4.106/g' \
+                        -e 's/SERVER_SUBNET/dev-private-subnet-b/g' \
+                        -e 's/SERVER_AZ/eu-west-1b/g' \
+                        -e 's/SERVER_OS/Amazon Linux 2023/g' \
+                        > webserver2.html
 
                         scp -o StrictHostKeyChecking=no \
                             -o UserKnownHostsFile=/dev/null \
