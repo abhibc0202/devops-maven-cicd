@@ -1,11 +1,445 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DevOps CI/CD Project</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS DevOps Deployment Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 18px;
+        }
+
+        .status-banner {
+            background: white;
+            border-left: 6px solid #16a34a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .status-banner h2 {
+            color: #15803d;
+            margin-bottom: 8px;
+        }
+
+        .status-banner p {
+            color: #475569;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pipeline-step {
+            background: white;
+            padding: 18px 10px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .pipeline-step .icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .pipeline-step h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .pipeline-step span {
+            font-size: 12px;
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin: 25px 0 14px;
+            font-size: 21px;
+            color: #0f172a;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .card h3 {
+            margin-bottom: 14px;
+            color: #1d4ed8;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 9px 0;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .card strong {
+            color: #0f172a;
+        }
+
+        .healthy {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin: 6px;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 900px) {
+            .pipeline {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .pipeline {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>DevOps CI/CD Pipeline Successful - Auto Trigger Tested</h1>
-    <p>GitHub → Jenkins → Maven → Nginx</p>
-    <p>Created by Abhishek B C</p>
+
+    <div class="header">
+        <h1>☁ AWS DevOps Deployment Dashboard</h1>
+        <p>Automated CI/CD Deployment using GitHub, Jenkins, Maven and AWS</p>
+    </div>
+
+    <div class="container">
+
+        <div class="status-banner">
+            <h2>✓ Deployment Successful</h2>
+            <p>
+                The application has been successfully built and deployed
+                through the automated DevOps pipeline.
+            </p>
+        </div>
+
+        <h2 class="section-title">CI/CD Pipeline Flow</h2>
+
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="icon">🔗</div>
+                <h3>GitHub</h3>
+                <span>Connected</span>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="icon">⚙️</div>
+                <h3>Jenkins</h3>
+                <span>Successful</span>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="icon">📦</div>
+                <h3>Maven</h3>
+                <span>Build Passed</span>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="icon">🗜️</div>
+                <h3>ZIP Artifact</h3>
+                <span>Created</span>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="icon">🖥️</div>
+                <h3>Nginx</h3>
+                <span>Running</span>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="icon">⚖️</div>
+                <h3>ALB</h3>
+                <span>Healthy</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Application Server Status</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>🟢 Application Server 1</h3>
+                <p><strong>Server ID:</strong> APP-01</p>
+                <p><strong>Operating System:</strong> Ubuntu</p>
+                <p><strong>Private IP:</strong> 10.0.3.154</p>
+                <p><strong>Subnet:</strong> Private Subnet A</p>
+                <p><strong>Availability Zone:</strong> eu-west-1a</p>
+                <p><strong>Web Server:</strong> Nginx</p>
+                <p><span class="healthy">HEALTHY</span></p>
+            </div>
+
+            <div class="card">
+                <h3>🟢 Application Server 2</h3>
+                <p><strong>Server ID:</strong> APP-02</p>
+                <p><strong>Operating System:</strong> Amazon Linux</p>
+                <p><strong>Private IP:</strong> 10.0.4.106</p>
+                <p><strong>Subnet:</strong> Private Subnet B</p>
+                <p><strong>Availability Zone:</strong> eu-west-1b</p>
+                <p><strong>Web Server:</strong> Nginx</p>
+                <p><span class="healthy">HEALTHY</span></p>
+            </div>
+
+            <div class="card">
+                <h3>☁ AWS Environment</h3>
+                <p><strong>Region:</strong> eu-west-1</p>
+                <p><strong>VPC:</strong> dev-vpc</p>
+                <p><strong>Load Balancer:</strong> Application Load Balancer</p>
+                <p><strong>Network:</strong> Public ALB → Private EC2</p>
+                <p><strong>Routing:</strong> Path-Based Routing</p>
+                <p><strong>Environment:</strong> Production Demo</p>
+                <p><span class="healthy">ACTIVE</span></p>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">AWS Infrastructure Details</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Configuration</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>VPC</td>
+                        <td>dev-vpc - 10.0.0.0/16</td>
+                        <td>Active</td>
+                    </tr>
+
+                    <tr>
+                        <td>Public Subnets</td>
+                        <td>10.0.1.0/24, 10.0.2.0/24</td>
+                        <td>Active</td>
+                    </tr>
+
+                    <tr>
+                        <td>Private Subnets</td>
+                        <td>10.0.3.0/24, 10.0.4.0/24</td>
+                        <td>Active</td>
+                    </tr>
+
+                    <tr>
+                        <td>Internet Gateway</td>
+                        <td>dev-igw</td>
+                        <td>Attached</td>
+                    </tr>
+
+                    <tr>
+                        <td>NAT Gateway</td>
+                        <td>dev-nat-gateway</td>
+                        <td>Available</td>
+                    </tr>
+
+                    <tr>
+                        <td>Load Balancer</td>
+                        <td>dev-public-alb</td>
+                        <td>Healthy</td>
+                    </tr>
+
+                    <tr>
+                        <td>Target Groups</td>
+                        <td>dev-tg-app1, dev-tg-app2</td>
+                        <td>Healthy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">Technology Stack</h2>
+
+        <div class="card">
+            <div class="tech-stack">
+                <div class="tech">AWS</div>
+                <div class="tech">VPC</div>
+                <div class="tech">EC2</div>
+                <div class="tech">Application Load Balancer</div>
+                <div class="tech">GitHub</div>
+                <div class="tech">Jenkins</div>
+                <div class="tech">Maven</div>
+                <div class="tech">Nginx</div>
+                <div class="tech">Linux</div>
+                <div class="tech">HTML</div>
+                <div class="tech">SSH</div>
+                <div class="tech">Webhook</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Deployment Summary</h2>
+
+        <div class="table-container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>Source Repository</strong></td>
+                        <td>GitHub</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Build Automation</strong></td>
+                        <td>Jenkins Pipeline</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Build Tool</strong></td>
+                        <td>Apache Maven</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Artifact</strong></td>
+                        <td>devops-project.zip</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Deployment Method</strong></td>
+                        <td>Secure SSH and SCP</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Backend Servers</strong></td>
+                        <td>Private EC2 Instances</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Traffic Entry Point</strong></td>
+                        <td>Public Application Load Balancer</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Deployed By</strong></td>
+                        <td>Abhishek B C</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>🚀 AWS DevOps CI/CD Demonstration Project</p>
+        <p>GitHub → Jenkins → Maven → ZIP → Private EC2 → Nginx → ALB</p>
+        <p>Created by Abhishek B C</p>
+    </div>
+
 </body>
 </html>
